@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.nikiene.todo_list.enums.PriorityEnum;
 import com.github.nikiene.todo_list.model.TaskModel;
 import com.github.nikiene.todo_list.repositories.ITaskRepository;
+import com.github.nikiene.todo_list.utils.Utils;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -43,13 +44,11 @@ public class TaskController {
         var ownerUserID = (UUID) request.getAttribute("ownerUserID");
         task.setOwnerUserID(ownerUserID);
 
-        task.setCreatedAt(task.getCreatedAt() == null ? LocalDateTime.now() : task.getCreatedAt());
-        task.setUpdatedAt(LocalDateTime.now());
+        var foundTask = this.taskRepository.findById(id).orElseThrow(() -> new RuntimeException("Task not found"));
 
-        task.setPriority(task.getPriority() == null ? PriorityEnum.MEDIUM : task.getPriority());
+        Utils.copyNonNullProperties(task, foundTask);
 
-        task.setId(id);
-        return ResponseEntity.status(HttpStatus.OK).body(this.taskRepository.save(task));
+        return ResponseEntity.status(HttpStatus.OK).body(this.taskRepository.save(foundTask));
     }
 
     @PostMapping("")
