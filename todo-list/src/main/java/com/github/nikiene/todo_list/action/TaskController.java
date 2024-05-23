@@ -16,8 +16,10 @@ import com.github.nikiene.todo_list.repositories.ITaskRepository;
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/tasks")
@@ -27,10 +29,27 @@ public class TaskController {
     private ITaskRepository taskRepository;
 
     @GetMapping("")
-    public ResponseEntity<Object> getTasks() {
+    public ResponseEntity<Object> getTasks(HttpServletRequest request) {
 
-        var tasks = this.taskRepository.findAll();
+        var ownerUserID = (UUID) request.getAttribute("ownerUserID");
+        var tasks = this.taskRepository.findByOwnerUserID(ownerUserID);
+
         return ResponseEntity.status(HttpStatus.OK).body(tasks);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateTaskById(@RequestBody TaskModel task, HttpServletRequest request,
+            @PathVariable UUID id) {
+        var ownerUserID = (UUID) request.getAttribute("ownerUserID");
+        task.setOwnerUserID(ownerUserID);
+
+        task.setCreatedAt(task.getCreatedAt() == null ? LocalDateTime.now() : task.getCreatedAt());
+        task.setUpdatedAt(LocalDateTime.now());
+
+        task.setPriority(task.getPriority() == null ? PriorityEnum.MEDIUM : task.getPriority());
+
+        task.setId(id);
+        return ResponseEntity.status(HttpStatus.OK).body(this.taskRepository.save(task));
     }
 
     @PostMapping("")
