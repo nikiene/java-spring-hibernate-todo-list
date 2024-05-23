@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.github.nikiene.todo_list.enums.PriorityEnum;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,24 +15,37 @@ import jakarta.persistence.Id;
 import lombok.Data;
 
 @Data
-@Entity(name = "tb_users")
-public class UserModel {
+@Entity(name = "tb_tasks")
+public class TaskModel {
 
     @Id
     @Column(unique = true)
     @GeneratedValue(generator = "UUID")
     private UUID id;
 
-    @Column(unique = true)
-    private String username;
+    @Column
+    private UUID ownerUserID;
+
+    @Column(length = 50)
+    private String title;
 
     @Column
-    private String name;
-
-    @Column
-    private String password;
+    private String description;
 
     @Column
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    @Column
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
+
+    @Column
+    private boolean isDone;
+
+    @Column
+    private LocalDateTime doneAt;
+
+    @Column
+    private PriorityEnum priority;
 }
