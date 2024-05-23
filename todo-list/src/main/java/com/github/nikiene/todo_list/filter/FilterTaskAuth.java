@@ -1,6 +1,7 @@
 package com.github.nikiene.todo_list.filter;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +34,12 @@ public class FilterTaskAuth extends OncePerRequestFilter {
 
         var servletPath = request.getServletPath();
 
-        if (servletPath.startsWith("/tasks")) {
+        if (servletPath.equals("/tasks")) {
             var authEncoded = request.getHeader("Authorization");
-            authEncoded.substring("Basic".length()).trim();
+            authEncoded = authEncoded.substring("Basic".length()).trim();
 
-            byte[] authDecoded = Base64.getDecoder().decode(authEncoded);
-            var authDecodedString = new String(authDecoded);
+            var authDecoded = Base64.getDecoder().decode(authEncoded);
+            var authDecodedString = new String(authDecoded, StandardCharsets.UTF_8);
 
             var credentials = authDecodedString.split(":");
             var username = credentials[0];
