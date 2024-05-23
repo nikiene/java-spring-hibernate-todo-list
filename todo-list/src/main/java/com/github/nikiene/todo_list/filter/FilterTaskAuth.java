@@ -57,6 +57,7 @@ public class FilterTaskAuth extends OncePerRequestFilter {
                 return;
             }
 
+            request.setAttribute("ownerUserID", user.getId());
             filterChain.doFilter(request, response);
         } else {
             filterChain.doFilter(request, response);
