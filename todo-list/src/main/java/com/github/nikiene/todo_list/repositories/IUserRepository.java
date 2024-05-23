@@ -8,4 +8,6 @@ import com.github.nikiene.todo_list.model.UserModel;
 
 public interface IUserRepository extends JpaRepository<UserModel, UUID> {
 
+    UserModel findByUsername(String username);
+
 }
