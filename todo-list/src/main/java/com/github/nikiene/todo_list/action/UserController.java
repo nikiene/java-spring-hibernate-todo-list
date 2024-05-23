@@ -21,8 +21,8 @@ public class UserController {
     @Autowired
     private IUserRepository userRepository;
 
-    @PostMapping("/create")
-    public ResponseEntity<Object> createUser(@RequestBody UserModel user) {
+    @PostMapping("/")
+    public ResponseEntity<Object> postUser(@RequestBody UserModel user) {
         var exists = this.userRepository.findByUsername(user.getUsername());
 
         if (exists != null) {
