@@ -46,6 +46,10 @@ public class TaskController {
 
         var foundTask = this.taskRepository.findById(id).orElseThrow(() -> new RuntimeException("Task not found"));
 
+        if (!foundTask.getOwnerUserID().equals(ownerUserID)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Forbidden");
+        }
+
         Utils.copyNonNullProperties(task, foundTask);
 
         return ResponseEntity.status(HttpStatus.OK).body(this.taskRepository.save(foundTask));
