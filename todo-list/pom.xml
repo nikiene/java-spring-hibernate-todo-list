@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.github.nikiene</groupId>
 	<artifactId>todo-list</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>todo-list</name>
 	<description>Task manager using Java and SpringBoot3</description>
 	<properties>
@@ -67,11 +67,16 @@
 			<artifactId>spring-web</artifactId>
 			<version>6.1.7</version>
 		</dependency>
-
 		<dependency>
 			<groupId>at.favre.lib</groupId>
 			<artifactId>bcrypt</artifactId>
 			<version>0.10.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+			<version>3.3.0</version>
 		</dependency>
 	</dependencies>
 
