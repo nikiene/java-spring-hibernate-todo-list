@@ -1,0 +1,15 @@
+name: Docker Image CI
+
+on:
+  push:
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build and push the image
+        run: |
+          docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password ${{ secrets.DOCKERHUB_TOKEN }} ghcr.io
+          docker build . --tag ghcr.io/nikiene/java-spring-hibernate-todo-list:latest
+          docker push ghcr.io/nikiene/java-spring-hibernate-todo-list:latest
