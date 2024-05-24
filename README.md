@@ -12,6 +12,13 @@ in this project I'm following along the Rocketseat's mini Java Course and buildi
 
 #
 
+You can pull this Docker image using the command below:
+```
+docker pull ghcr.io/nikiene/java-spring-hibernate-todo-list:latest
+```
+
+#
+
 Once I'm finished with this i will make a React Front-End integration for it.
 
 #
