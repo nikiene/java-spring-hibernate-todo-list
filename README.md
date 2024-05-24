@@ -8,6 +8,7 @@ in this project I'm following along the Rocketseat's mini Java Course and buildi
  * H2 Database Engine
  * Spring Boot Framework
  * Hibernate ORM
+ * Docker
 
 #
 
