@@ -19,6 +19,14 @@ docker pull ghcr.io/nikiene/java-spring-hibernate-todo-list:latest
 
 #
 
+Usage:
+
+#
+
+[TODO] - Show working endpoints + functionalities.
+
+#
+
 Once I'm finished with this i will make a React Front-End integration for it.
 
 #
